@@ -216,7 +216,7 @@ function garfunkel_if_first_page_home_page( $classes ) {
 
 	$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
-	if ( is_home() && ( $paged == 1 ) ) {
+	if ( is_home() && ( 1 == $paged ) ) {
 		$classes[] = 'home_first_page';
 	}
 
@@ -228,7 +228,6 @@ function garfunkel_if_first_page_home_page( $classes ) {
 add_action( 'body_class', 'garfunkel_if_is_mobile' );
 
 function garfunkel_if_is_mobile( $classes ) {
-	global $post;
 	if ( wp_is_mobile() ) {
 		$classes[] = 'is_mobile';
 	}
@@ -251,7 +250,7 @@ function garfunkel_if_page_class( $classes ) {
 
 
 // Change the length of excerpts
-function garfunkel_custom_excerpt_length( $length ) {
+function garfunkel_custom_excerpt_length() {
 	return 20;
 }
 
@@ -259,8 +258,8 @@ add_filter( 'excerpt_length', 'garfunkel_custom_excerpt_length', 999 );
 
 
 // Add ellipsis to end of excerpt
-function garfunkel_new_excerpt( $more ) {
-	return '...';
+function garfunkel_new_excerpt() {
+	return ' &hellip;';
 }
 
 add_filter( 'excerpt_more', 'garfunkel_new_excerpt' );
