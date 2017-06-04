@@ -295,18 +295,14 @@ function garfunkel_get_comment_excerpt( $comment_id = 0, $num_words = 20 ) {
 
 // Style the admin area
 function garfunkel_custom_colors() {
-	echo '<style type="text/css">
-   
-#postimagediv #set-post-thumbnail img {
-	max-width: 100%;
-	height: auto;
-}
-
-         </style>';
+	?>
+	<style type="text/css">
+		#postimagediv #set-post-thumbnail img {max-width: 100%;height: auto;}
+	</style>';
+	<?php
 }
 
 add_action( 'admin_head', 'garfunkel_custom_colors' );
-
 
 // Garfunkel meta function
 function garfunkel_meta() {
