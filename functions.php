@@ -4,15 +4,15 @@
 add_action( 'after_setup_theme', 'garfunkel_setup' );
 
 function garfunkel_setup() {
-	
+
 	// Automatic feed
 	add_theme_support( 'automatic-feed-links' );
-		
+
 	// Post thumbnails
 	add_theme_support( 'post-thumbnails', array( 'post', 'page' ) );
 	add_image_size( 'post-image', 1140, 9999 );
 	add_image_size( 'post-thumbnail', 552, 9999 );
-	
+
 	// Post formats
 	add_theme_support( 'post-formats', array( 'aside', 'gallery', 'image', 'link', 'quote', 'video' ) );
 
@@ -23,69 +23,83 @@ function garfunkel_setup() {
 		'default-image' => get_template_directory_uri() . '/images/bg.jpg',
 		'uploads'       => true,
 		'header-text'  	=> false
-		
+
 	);
 	add_theme_support( 'custom-header', $args );
-	
+
 	// Jetpack infinite scroll
 	add_theme_support( 'infinite-scroll', array(
 		'type' 				=> 		'scroll',
 	    'container'			=> 		'posts',
 		'footer' 			=> 		false,
 	) );
-	
-	
+
+
 	// Add support for title tag
 	add_theme_support('title-tag');
 
 	// Add nav menu
 	register_nav_menu( 'primary', __('Primary Menu','garfunkel') );
 	register_nav_menu( 'social', __('Social Menu','garfunkel') );
-	
+
 	// Make the theme translation ready
 	load_theme_textdomain('garfunkel', get_template_directory() . '/languages');
-	
+
 	$locale = get_locale();
 	$locale_file = get_template_directory() . "/languages/$locale.php";
 	if ( is_readable($locale_file) )
 	  require_once($locale_file);
-	
+
 }
 
-// Enqueue Javascript files
-function garfunkel_load_javascript_files() {
+/**
+ * Registers styles and scripts.
+ *
+ * @return void
+ *
+ * @author JayWood
+ * @since  NEXT
+ */
+function garfunkel_register_scripts() {
+	wp_register_script( 'garfunkel_imagesloaded', get_template_directory_uri().'/js/imagesloaded.pkgd.js', array('jquery'), '', true );
+	wp_register_script( 'garfunkel_flexslider', get_template_directory_uri().'/js/flexslider.min.js', array('jquery'), '', true );
+	wp_register_script( 'garfunkel_global', get_template_directory_uri().'/js/global.js', array('jquery'), '', true );
 
-	if ( !is_admin() ) {
-		wp_register_script( 'garfunkel_imagesloaded', get_template_directory_uri().'/js/imagesloaded.pkgd.js', array('jquery'), '', true );
-		wp_register_script( 'garfunkel_flexslider', get_template_directory_uri().'/js/flexslider.min.js', array('jquery'), '', true );
-		wp_register_script( 'garfunkel_global', get_template_directory_uri().'/js/global.js', array('jquery'), '', true );
-		
-		wp_enqueue_script( 'garfunkel_imagesloaded' );
-		wp_enqueue_script( 'masonry' );
-		wp_enqueue_script( 'garfunkel_flexslider' );
-		wp_enqueue_script( 'garfunkel_global' );
-		
-		if ( is_singular() && get_option( 'thread_comments' ) ) { wp_enqueue_script( 'comment-reply' ); }
+	wp_register_style('garfunkel_googleFonts',  '//fonts.googleapis.com/css?family=Fira+Sans:400,500,700,400italic,700italic|Playfair+Display:400,900|Crimson+Text:700,400italic,700italic,400' );
+	wp_register_style('garfunkel_genericons', get_template_directory_uri() . '/genericons/genericons.css' );
+	wp_register_style('garfunkel_style', get_stylesheet_uri() );
+}
+add_action( 'init', 'garfunkel_register_scripts' );
+
+/**
+ * Loads styles and scripts.
+ *
+ * @return void
+ *
+ * @author JayWood
+ * @since  NEXT
+ */
+function garfunkel_load_scripts() {
+
+	if ( is_admin() ) {
+		return;
 	}
-}
 
-add_action( 'wp_enqueue_scripts', 'garfunkel_load_javascript_files' );
+	wp_enqueue_script( 'garfunkel_imagesloaded' );
+	wp_enqueue_script( 'masonry' );
+	wp_enqueue_script( 'garfunkel_flexslider' );
+	wp_enqueue_script( 'garfunkel_global' );
 
-
-// Enqueue styles
-function garfunkel_load_style() {
-	if ( !is_admin() ) {
-	    wp_register_style('garfunkel_googleFonts',  '//fonts.googleapis.com/css?family=Fira+Sans:400,500,700,400italic,700italic|Playfair+Display:400,900|Crimson+Text:700,400italic,700italic,400' );
-		wp_register_style('garfunkel_genericons', get_template_directory_uri() . '/genericons/genericons.css' );
-		wp_register_style('garfunkel_style', get_stylesheet_uri() );
-		
-	    wp_enqueue_style( 'garfunkel_googleFonts' );
-	    wp_enqueue_style( 'garfunkel_genericons' );
-	    wp_enqueue_style( 'garfunkel_style' );
+	if ( is_singular() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
 	}
-}
 
-add_action('wp_print_styles', 'garfunkel_load_style');
+	// Load styles now.
+	wp_enqueue_style( 'garfunkel_googleFonts' );
+	wp_enqueue_style( 'garfunkel_genericons' );
+	wp_enqueue_style( 'garfunkel_style' );
+}
+add_action( 'wp_enqueue_scripts', 'garfunkel_load_scripts' );
 
 
 // Add editor styles
@@ -98,7 +112,7 @@ add_action( 'init', 'garfunkel_add_editor_styles' );
 
 
 // Add footer widget areas
-add_action( 'widgets_init', 'garfunkel_sidebar_reg' ); 
+add_action( 'widgets_init', 'garfunkel_sidebar_reg' );
 
 function garfunkel_sidebar_reg() {
 	register_sidebar(array(
@@ -109,7 +123,7 @@ function garfunkel_sidebar_reg() {
 	  'after_title' => '</h3>',
 	  'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
 	  'after_widget' => '</div><div class="clear"></div></div>'
-	));	
+	));
 	register_sidebar(array(
 	  'name' => __( 'Footer B', 'garfunkel' ),
 	  'id' => 'footer-b',
@@ -129,10 +143,10 @@ function garfunkel_sidebar_reg() {
 	  'after_widget' => '</div><div class="clear"></div></div>'
 	));
 }
-	
+
 // Add theme widgets
-require_once (get_template_directory() . "/widgets/dribbble-widget.php");  
-require_once (get_template_directory() . "/widgets/flickr-widget.php");  
+require_once (get_template_directory() . "/widgets/dribbble-widget.php");
+require_once (get_template_directory() . "/widgets/flickr-widget.php");
 require_once (get_template_directory() . "/widgets/recent-comments.php");
 require_once (get_template_directory() . "/widgets/recent-posts.php");
 require_once (get_template_directory() . "/widgets/video-widget.php");
@@ -203,7 +217,7 @@ add_action('body_class', 'garfunkel_if_first_page_home_page' );
 function garfunkel_if_first_page_home_page($classes) {
 
 	$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-	
+
     if ( is_home() && ( $paged == 1 ) ) {
 		$classes[] = 'home_first_page';
     }
@@ -295,7 +309,7 @@ add_action('admin_head', 'garfunkel_custom_colors');
 // Garfunkel meta function
 function garfunkel_meta() { ?>
 
-	<div class="post-meta">			
+	<div class="post-meta">
 		<a class="post-meta-date" href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 			<div class="genericon genericon-time"></div>
 			<?php the_time( get_option('date_format') ); ?>
@@ -308,7 +322,7 @@ function garfunkel_meta() { ?>
 		<?php endif; ?>
 		<div class="clear"></div>
 	</div> <!-- /post-meta -->
-	
+
 <?php
 }
 
@@ -318,7 +332,7 @@ function garfunkel_flexslider($size=thumbnail) {
 
 	if ( is_page()) :
 		$attachment_parent = $post->ID;
-	else : 
+	else :
 		$attachment_parent = get_the_ID();
 	endif;
 
@@ -331,14 +345,14 @@ function garfunkel_flexslider($size=thumbnail) {
                 'orderby'        => 'menu_order',
                 'order'           => 'ASC',
 	))) { ?>
-	
+
 		<div class="flexslider">
-		
+
 			<ul class="slides">
-	
-				<?php foreach($images as $image) { 
+
+				<?php foreach($images as $image) {
 					$attimg = wp_get_attachment_image($image->ID,$size); ?>
-					
+
 					<li>
 						<?php echo $attimg; ?>
 						<?php if ( !empty($image->post_excerpt) && is_single()) : ?>
@@ -347,13 +361,13 @@ function garfunkel_flexslider($size=thumbnail) {
 							</div>
 						<?php endif; ?>
 					</li>
-					
+
 				<?php }; ?>
-		
+
 			</ul>
-			
+
 		</div><?php
-		
+
 	}
 }
 
@@ -366,11 +380,11 @@ function garfunkel_comment( $comment, $args, $depth ) {
 		case 'pingback' :
 		case 'trackback' :
 	?>
-	
+
 	<li <?php comment_class(); ?> id="comment-<?php comment_ID(); ?>">
-	
+
 		<?php __( 'Pingback:', 'garfunkel' ); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( 'Edit', 'garfunkel' ), '<span class="edit-link">', '</span>' ); ?>
-		
+
 	</li>
 	<?php
 			break;
@@ -378,43 +392,43 @@ function garfunkel_comment( $comment, $args, $depth ) {
 		global $post;
 	?>
 	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
-	
+
 		<div id="comment-<?php comment_ID(); ?>" class="comment">
-		
+
 			<?php echo get_avatar( $comment, 80 ); ?>
-		
+
 			<div class="comment-inner">
 
 				<div class="comment-header">
-											
+
 					<h4><?php comment_author_link(); ?></h4>
-					
+
 					<p><a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ) ?>"><?php echo get_comment_date() . '<span> &mdash; ' . get_comment_time() . '</span>'; ?></a></p>
-										
+
 				</div> <!-- /comment-header -->
 
 				<div class="comment-content post-content">
-				
+
 					<?php comment_text(); ?>
-					
+
 					<?php if ( '0' == $comment->comment_approved ) : ?>
-					
+
 						<p class="comment-awaiting-moderation"><?php _e( 'Awaiting moderation', 'garfunkel' ); ?></p>
-						
+
 					<?php endif; ?>
-					
+
 				</div><!-- /comment-content -->
-				
+
 				<div class="comment-actions">
-				
+
 					<?php edit_comment_link( __( 'Edit', 'garfunkel' ), '', '' ); ?>
-					
+
 					<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply', 'garfunkel' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
-					
+
 					<div class="clear"></div>
-				
+
 				</div> <!-- /comment-actions -->
-				
+
 			</div> <!-- /comment-inner -->
 
 		</div><!-- /comment-## -->
@@ -429,23 +443,23 @@ endif;
 class Garfunkel_Customize {
 
    public static function register ( $wp_customize ) {
-   
+
       //1. Define a new section (if desired) to the Theme Customizer
-      $wp_customize->add_section( 'garfunkel_options', 
+      $wp_customize->add_section( 'garfunkel_options',
          array(
             'title' => __( 'Garfunkel Options', 'garfunkel' ), //Visible title of section
             'priority' => 35, //Determines what order this appears in
             'capability' => 'edit_theme_options', //Capability needed to tweak
             'description' => __('Allows you to customize settings for Garfunkel.', 'garfunkel'), //Descriptive tooltip
-         ) 
+         )
       );
-      
+
       $wp_customize->add_section( 'garfunkel_logo_section' , array(
 		    'title'       => __( 'Logo', 'garfunkel' ),
 		    'priority'    => 40,
 		    'description' => 'Upload a logo to replace the default site name and description in the header',
 		) );
-      
+
       //2. Register new settings to the WP database...
       $wp_customize->add_setting( 'accent_color', //No need to use a SERIALIZED name, as `theme_mod` settings already live under one db record
          array(
@@ -454,16 +468,16 @@ class Garfunkel_Customize {
             'capability' => 'edit_theme_options', //Optional. Special permissions for accessing this setting.
             'transport' => 'postMessage', //What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
       		'sanitize_callback' => 'sanitize_hex_color'
-         ) 
+         )
       );
-      
+
       // Add logo setting and sanitize it
-      $wp_customize->add_setting( 'garfunkel_logo', 
-      	array( 
+      $wp_customize->add_setting( 'garfunkel_logo',
+      	array(
       		'sanitize_callback' => 'esc_url_raw'
-      	) 
+      	)
       );
-                  
+
       //3. Finally, we define the control itself (which links a setting to a section and renders the HTML controls)...
       $wp_customize->add_control( new WP_Customize_Color_Control( //Instantiate the color control class
          $wp_customize, //Pass the $wp_customize object (required)
@@ -473,15 +487,15 @@ class Garfunkel_Customize {
             'section' => 'colors', //ID of the section this control should render in (can be one of yours, or a WordPress default section)
             'settings' => 'accent_color', //Which setting to load and manipulate (serialized is okay)
             'priority' => 10, //Determines the order this control appears in for the specified section
-         ) 
+         )
       ) );
-      
+
       $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'garfunkel_logo', array(
 		    'label'    => __( 'Logo', 'garfunkel' ),
 		    'section'  => 'garfunkel_logo_section',
 		    'settings' => 'garfunkel_logo',
 		) ) );
-      
+
       //4. We can also change built-in settings by modifying properties. For instance, let's make some stuff use live preview JS...
       $wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
       $wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
@@ -489,9 +503,9 @@ class Garfunkel_Customize {
 
    public static function header_output() {
       ?>
-      
-	      <!--Customizer CSS--> 
-	      
+
+	      <!--Customizer CSS-->
+
 	      <style type="text/css">
 	           <?php self::generate_css('body a', 'color', 'accent_color'); ?>
 	           <?php self::generate_css('body a:hover', 'color', 'accent_color'); ?>
@@ -509,12 +523,12 @@ class Garfunkel_Customize {
 	           <?php self::generate_css('.post-content a:hover', 'color', 'accent_color'); ?>
 	           <?php self::generate_css('.post-content fieldset legend', 'background', 'accent_color'); ?>
 	           <?php self::generate_css('.post-content input[type="button"]:hover', 'background', 'accent_color'); ?>
-	           <?php self::generate_css('.post-content input[type="reset"]:hover', 'background', 'accent_color'); ?>	           
+	           <?php self::generate_css('.post-content input[type="reset"]:hover', 'background', 'accent_color'); ?>
 	           <?php self::generate_css('.post-content input[type="submit"]:hover', 'background', 'accent_color'); ?>
 	           <?php self::generate_css('.post-nav-fixed a:hover', 'background', 'accent_color'); ?>
 	           <?php self::generate_css('.tab-post-meta .post-nav a:hover h4', 'color', 'accent_color'); ?>
 	           <?php self::generate_css('.post-info-items a:hover', 'color', 'accent_color'); ?>
-	           <?php self::generate_css('.page-links a', 'color', 'accent_color'); ?>	           
+	           <?php self::generate_css('.page-links a', 'color', 'accent_color'); ?>
 	           <?php self::generate_css('.page-links a:hover', 'background', 'accent_color'); ?>
 	           <?php self::generate_css('.author-name a:hover', 'color', 'accent_color'); ?>
 	           <?php self::generate_css('.content-by', 'color', 'accent_color'); ?>
@@ -556,19 +570,19 @@ class Garfunkel_Customize {
 	           <?php self::generate_css('body#tinymce.wp-editor input[type="submit"]:hover', 'background', 'accent_color'); ?>
 	           <?php self::generate_css('body#tinymce.wp-editor input[type="reset"]:hover', 'background', 'accent_color'); ?>
 	           <?php self::generate_css('body#tinymce.wp-editor input[type="button"]:hover', 'background', 'accent_color'); ?>
-	      </style> 
-	      
+	      </style>
+
 	      <!--/Customizer CSS-->
-	      
+
       <?php
    }
-   
+
    public static function live_preview() {
-      wp_enqueue_script( 
+      wp_enqueue_script(
            'garfunkel-themecustomizer', // Give the script a unique ID
            get_template_directory_uri() . '/js/theme-customizer.js', // Define the path to the JS file
            array(  'jquery', 'customize-preview' ), // Define dependencies
-           '', // Define a version (optional) 
+           '', // Define a version (optional)
            true // Specify whether to put in footer (leave this true)
       );
    }
