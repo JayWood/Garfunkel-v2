@@ -389,7 +389,6 @@ if ( ! function_exists( 'garfunkel_comment' ) ) :
 				<?php
 				break;
 			default :
-				global $post;
 				?>
 				<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
 
@@ -428,7 +427,7 @@ if ( ! function_exists( 'garfunkel_comment' ) ) :
 							<?php comment_reply_link( array_merge( $args, array(
 								'reply_text' => __( 'Reply', 'garfunkel' ),
 								'depth'      => $depth,
-								'max_depth'  => $args['max_depth']
+								'max_depth'  => $args['max_depth'],
 							) ) ); ?>
 
 							<div class="clear"></div>
