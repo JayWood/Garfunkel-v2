@@ -1,5 +1,14 @@
 <?php
 
+// Add theme widgets
+require_once 'includes/class-garfunkel-walker.php';
+require_once get_template_directory() . "/widgets/dribbble-widget.php";
+require_once get_template_directory() . "/widgets/flickr-widget.php";
+require_once get_template_directory() . "/widgets/recent-comments.php";
+require_once get_template_directory() . "/widgets/recent-posts.php";
+require_once get_template_directory() . "/widgets/video-widget.php";
+require_once get_template_directory() . "/widgets/search-form.php";
+
 // Theme setup
 add_action( 'after_setup_theme', 'garfunkel_setup' );
 
@@ -33,7 +42,6 @@ function garfunkel_setup() {
 		'container' => 'posts',
 		'footer'    => false,
 	) );
-
 
 	// Add support for title tag
 	add_theme_support( 'title-tag' );
@@ -126,8 +134,9 @@ function garfunkel_sidebar_reg() {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
-		'after_widget'  => '</div><div class="clear"></div></div>'
+		'after_widget'  => '</div><div class="clear"></div></div>',
 	) );
+
 	register_sidebar( array(
 		'name'          => __( 'Footer B', 'garfunkel' ),
 		'id'            => 'footer-b',
@@ -135,8 +144,9 @@ function garfunkel_sidebar_reg() {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
-		'after_widget'  => '</div><div class="clear"></div></div>'
+		'after_widget'  => '</div><div class="clear"></div></div>',
 	) );
+
 	register_sidebar( array(
 		'name'          => __( 'Footer C', 'garfunkel' ),
 		'id'            => 'footer-c',
@@ -144,18 +154,9 @@ function garfunkel_sidebar_reg() {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
-		'after_widget'  => '</div><div class="clear"></div></div>'
+		'after_widget'  => '</div><div class="clear"></div></div>',
 	) );
 }
-
-// Add theme widgets
-require_once( get_template_directory() . "/widgets/dribbble-widget.php" );
-require_once( get_template_directory() . "/widgets/flickr-widget.php" );
-require_once( get_template_directory() . "/widgets/recent-comments.php" );
-require_once( get_template_directory() . "/widgets/recent-posts.php" );
-require_once( get_template_directory() . "/widgets/video-widget.php" );
-require_once( get_template_directory() . "/widgets/search-form.php" );
-
 
 // Delist the WordPress widgets replaced by custom theme widgets
 function garfunkel_unregister_default_widgets() {
@@ -193,19 +194,6 @@ function garfunkel_posts_link_attributes_2() {
 	return 'class="post-nav-newer fright"';
 }
 
-
-// Menu walker adding "has-children" class to menu li's with children menu items
-class garfunkel_nav_walker extends Walker_Nav_Menu {
-	function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
-		$id_field = $this->db_fields['id'];
-		if ( ! empty( $children_elements[ $element->$id_field ] ) ) {
-			$element->classes[] = 'has-children';
-		}
-		Walker_Nav_Menu::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
-	}
-}
-
-
 // Add class to body if the post/page has a featured image
 add_action( 'body_class', 'garfunkel_if_featured_image_class' );
 
@@ -219,7 +207,6 @@ function garfunkel_if_featured_image_class( $classes ) {
 
 	return $classes;
 }
-
 
 // Add class to body if on the first page of the home page
 add_action( 'body_class', 'garfunkel_if_first_page_home_page' );
