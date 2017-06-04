@@ -3,19 +3,29 @@
 // Garfunkel theme options
 class Garfunkel_Customize {
 
+	/**
+	 * Registers the cusgomizer options.
+	 *
+	 * @param WP_Customize_Manager $wp_customize
+	 *
+	 * @return void
+	 *
+	 * @author JayWood
+	 * @since  NEXT
+	 */
 	public static function register( $wp_customize ) {
 
-//1. Define a new section (if desired) to the Theme Customizer
+		//1. Define a new section (if desired) to the Theme Customizer
 		$wp_customize->add_section( 'garfunkel_options',
 			array(
 				'title'       => __( 'Garfunkel Options', 'garfunkel' ),
-//Visible title of section
+				//Visible title of section
 				'priority'    => 35,
-//Determines what order this appears in
+				//Determines what order this appears in
 				'capability'  => 'edit_theme_options',
-//Capability needed to tweak
+				//Capability needed to tweak
 				'description' => __( 'Allows you to customize settings for Garfunkel.', 'garfunkel' ),
-//Descriptive tooltip
+				//Descriptive tooltip
 			)
 		);
 
@@ -25,41 +35,41 @@ class Garfunkel_Customize {
 			'description' => 'Upload a logo to replace the default site name and description in the header',
 		) );
 
-//2. Register new settings to the WP database...
+		//2. Register new settings to the WP database...
 		$wp_customize->add_setting( 'accent_color', //No need to use a SERIALIZED name, as `theme_mod` settings already live under one db record
 			array(
 				'default'           => '#ca2017',
-//Default setting/value to save
+				//Default setting/value to save
 				'type'              => 'theme_mod',
-//Is this an 'option' or a 'theme_mod'?
+				//Is this an 'option' or a 'theme_mod'?
 				'capability'        => 'edit_theme_options',
-//Optional. Special permissions for accessing this setting.
+				//Optional. Special permissions for accessing this setting.
 				'transport'         => 'postMessage',
-//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
+				//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
 				'sanitize_callback' => 'sanitize_hex_color'
 			)
 		);
 
-// Add logo setting and sanitize it
+		// Add logo setting and sanitize it
 		$wp_customize->add_setting( 'garfunkel_logo',
 			array(
 				'sanitize_callback' => 'esc_url_raw'
 			)
 		);
 
-//3. Finally, we define the control itself (which links a setting to a section and renders the HTML controls)...
+		//3. Finally, we define the control itself (which links a setting to a section and renders the HTML controls)...
 		$wp_customize->add_control( new WP_Customize_Color_Control( //Instantiate the color control class
 			$wp_customize, //Pass the $wp_customize object (required)
 			'garfunkel_accent_color', //Set a unique ID for the control
 			array(
 				'label'    => __( 'Accent Color', 'garfunkel' ),
-//Admin-visible name of the control
+				//Admin-visible name of the control
 				'section'  => 'colors',
-//ID of the section this control should render in (can be one of yours, or a WordPress default section)
+				//ID of the section this control should render in (can be one of yours, or a WordPress default section)
 				'settings' => 'accent_color',
-//Which setting to load and manipulate (serialized is okay)
+				//Which setting to load and manipulate (serialized is okay)
 				'priority' => 10,
-//Determines the order this control appears in for the specified section
+				//Determines the order this control appears in for the specified section
 			)
 		) );
 
@@ -69,7 +79,7 @@ class Garfunkel_Customize {
 			'settings' => 'garfunkel_logo',
 		) ) );
 
-//4. We can also change built-in settings by modifying properties. For instance, let's make some stuff use live preview JS...
+		//4. We can also change built-in settings by modifying properties. For instance, let's make some stuff use live preview JS...
 		$wp_customize->get_setting( 'blogname' )->transport        = 'postMessage';
 		$wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
 	}
