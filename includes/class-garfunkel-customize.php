@@ -46,14 +46,14 @@ class Garfunkel_Customize {
 				//Optional. Special permissions for accessing this setting.
 				'transport'         => 'postMessage',
 				//What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
-				'sanitize_callback' => 'sanitize_hex_color'
+				'sanitize_callback' => 'sanitize_hex_color',
 			)
 		);
 
 		// Add logo setting and sanitize it
 		$wp_customize->add_setting( 'garfunkel_logo',
 			array(
-				'sanitize_callback' => 'esc_url_raw'
+				'sanitize_callback' => 'esc_url_raw',
 			)
 		);
 
