@@ -80,69 +80,71 @@ class Garfunkel_Customize {
 		<!--Customizer CSS-->
 
 		<style type="text/css">
-			<?php self::generate_css('body a', 'color', 'accent_color'); ?>
-			<?php self::generate_css('body a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.blog-title a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.menu-social a:hover', 'background-color', 'accent_color'); ?>
-			<?php self::generate_css('.sticky.post .is-sticky', 'background-color', 'accent_color'); ?>
-			<?php self::generate_css('.sticky.post .is-sticky:before', 'border-top-color', 'accent_color'); ?>
-			<?php self::generate_css('.sticky.post .is-sticky:before', 'border-left-color', 'accent_color'); ?>
-			<?php self::generate_css('.sticky.post .is-sticky:after', 'border-top-color', 'accent_color'); ?>
-			<?php self::generate_css('.sticky.post .is-sticky:after', 'border-right-color', 'accent_color'); ?>
-			<?php self::generate_css('.post-title a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.post-quote', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.post-link', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.post-content a', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.post-content a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.post-content fieldset legend', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.post-content input[type="button"]:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.post-content input[type="reset"]:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.post-content input[type="submit"]:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.post-nav-fixed a:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.tab-post-meta .post-nav a:hover h4', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.post-info-items a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.page-links a', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.page-links a:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.author-name a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.content-by', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.author-content a:hover .title', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.author-content a:hover .post-icon', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.comment-notes a', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.comment-notes a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.content #respond input[type="submit"]', 'background-color', 'accent_color'); ?>
-			<?php self::generate_css('.comment-header h4 a', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.bypostauthor > .comment:before', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.comment-actions a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('#cancel-comment-reply-link', 'color', 'accent_color'); ?>
-			<?php self::generate_css('#cancel-comment-reply-link:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.comments-nav a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget-title a', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget-title a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_text a', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_text a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_rss li a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_archive li a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_meta li a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_pages li a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_links li a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_categories li a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_rss .widget-content ul a.rsswidget:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('#wp-calendar a', 'color', 'accent_color'); ?>
-			<?php self::generate_css('#wp-calendar a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('#wp-calendar thead', 'color', 'accent_color'); ?>
-			<?php self::generate_css('#wp-calendar tfoot a:hover', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.tagcloud a:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.widget_garfunkel_recent_posts a:hover .title', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_garfunkel_recent_posts a:hover .post-icon', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.widget_garfunkel_recent_comments a:hover .title', 'color', 'accent_color'); ?>
-			<?php self::generate_css('.widget_garfunkel_recent_comments a:hover .post-icon', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.mobile-menu a:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('.mobile-menu-container .menu-social a:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('body#tinymce.wp-editor a', 'color', 'accent_color'); ?>
-			<?php self::generate_css('body#tinymce.wp-editor fieldset legend', 'background', 'accent_color'); ?>
-			<?php self::generate_css('body#tinymce.wp-editor input[type="submit"]:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('body#tinymce.wp-editor input[type="reset"]:hover', 'background', 'accent_color'); ?>
-			<?php self::generate_css('body#tinymce.wp-editor input[type="button"]:hover', 'background', 'accent_color'); ?>
+			<?php
+			self::generate_css( 'body a', 'color', 'accent_color' );
+			self::generate_css( 'body a:hover', 'color', 'accent_color' );
+			self::generate_css( '.blog-title a:hover', 'color', 'accent_color' );
+			self::generate_css( '.menu-social a:hover', 'background-color', 'accent_color' );
+			self::generate_css( '.sticky.post .is-sticky', 'background-color', 'accent_color' );
+			self::generate_css( '.sticky.post .is-sticky:before', 'border-top-color', 'accent_color' );
+			self::generate_css( '.sticky.post .is-sticky:before', 'border-left-color', 'accent_color' );
+			self::generate_css( '.sticky.post .is-sticky:after', 'border-top-color', 'accent_color' );
+			self::generate_css( '.sticky.post .is-sticky:after', 'border-right-color', 'accent_color' );
+			self::generate_css( '.post-title a:hover', 'color', 'accent_color' );
+			self::generate_css( '.post-quote', 'background', 'accent_color' );
+			self::generate_css( '.post-link', 'background', 'accent_color' );
+			self::generate_css( '.post-content a', 'color', 'accent_color' );
+			self::generate_css( '.post-content a:hover', 'color', 'accent_color' );
+			self::generate_css( '.post-content fieldset legend', 'background', 'accent_color' );
+			self::generate_css( '.post-content input[type="button"]:hover', 'background', 'accent_color' );
+			self::generate_css( '.post-content input[type="reset"]:hover', 'background', 'accent_color' );
+			self::generate_css( '.post-content input[type="submit"]:hover', 'background', 'accent_color' );
+			self::generate_css( '.post-nav-fixed a:hover', 'background', 'accent_color' );
+			self::generate_css( '.tab-post-meta .post-nav a:hover h4', 'color', 'accent_color' );
+			self::generate_css( '.post-info-items a:hover', 'color', 'accent_color' );
+			self::generate_css( '.page-links a', 'color', 'accent_color' );
+			self::generate_css( '.page-links a:hover', 'background', 'accent_color' );
+			self::generate_css( '.author-name a:hover', 'color', 'accent_color' );
+			self::generate_css( '.content-by', 'color', 'accent_color' );
+			self::generate_css( '.author-content a:hover .title', 'color', 'accent_color' );
+			self::generate_css( '.author-content a:hover .post-icon', 'background', 'accent_color' );
+			self::generate_css( '.comment-notes a', 'color', 'accent_color' );
+			self::generate_css( '.comment-notes a:hover', 'color', 'accent_color' );
+			self::generate_css( '.content #respond input[type="submit"]', 'background-color', 'accent_color' );
+			self::generate_css( '.comment-header h4 a', 'color', 'accent_color' );
+			self::generate_css( '.bypostauthor > .comment:before', 'background', 'accent_color' );
+			self::generate_css( '.comment-actions a:hover', 'color', 'accent_color' );
+			self::generate_css( '#cancel-comment-reply-link', 'color', 'accent_color' );
+			self::generate_css( '#cancel-comment-reply-link:hover', 'color', 'accent_color' );
+			self::generate_css( '.comments-nav a:hover', 'color', 'accent_color' );
+			self::generate_css( '.widget-title a', 'color', 'accent_color' );
+			self::generate_css( '.widget-title a:hover', 'color', 'accent_color' );
+			self::generate_css( '.widget_text a', 'color', 'accent_color' );
+			self::generate_css( '.widget_text a:hover', 'color', 'accent_color' );
+			self::generate_css( '.widget_rss li a:hover', 'color', 'accent_color' );
+			self::generate_css( '.widget_archive li a:hover', 'color', 'accent_color' );
+			self::generate_css( '.widget_meta li a:hover', 'color', 'accent_color' );
+			self::generate_css( '.widget_pages li a:hover', 'color', 'accent_color' );
+			self::generate_css( '.widget_links li a:hover', 'color', 'accent_color' );
+			self::generate_css( '.widget_categories li a:hover', 'color', 'accent_color' );
+			self::generate_css( '.widget_rss .widget-content ul a.rsswidget:hover', 'color', 'accent_color' );
+			self::generate_css( '#wp-calendar a', 'color', 'accent_color' );
+			self::generate_css( '#wp-calendar a:hover', 'color', 'accent_color' );
+			self::generate_css( '#wp-calendar thead', 'color', 'accent_color' );
+			self::generate_css( '#wp-calendar tfoot a:hover', 'color', 'accent_color' );
+			self::generate_css( '.tagcloud a:hover', 'background', 'accent_color' );
+			self::generate_css( '.widget_garfunkel_recent_posts a:hover .title', 'color', 'accent_color' );
+			self::generate_css( '.widget_garfunkel_recent_posts a:hover .post-icon', 'background', 'accent_color' );
+			self::generate_css( '.widget_garfunkel_recent_comments a:hover .title', 'color', 'accent_color' );
+			self::generate_css( '.widget_garfunkel_recent_comments a:hover .post-icon', 'background', 'accent_color' );
+			self::generate_css( '.mobile-menu a:hover', 'background', 'accent_color' );
+			self::generate_css( '.mobile-menu-container .menu-social a:hover', 'background', 'accent_color' );
+			self::generate_css( 'body#tinymce.wp-editor a', 'color', 'accent_color' );
+			self::generate_css( 'body#tinymce.wp-editor fieldset legend', 'background', 'accent_color' );
+			self::generate_css( 'body#tinymce.wp-editor input[type="submit"]:hover', 'background', 'accent_color' );
+			self::generate_css( 'body#tinymce.wp-editor input[type="reset"]:hover', 'background', 'accent_color' );
+			self::generate_css( 'body#tinymce.wp-editor input[type="button"]:hover', 'background', 'accent_color' );
+			?>
 		</style>
 
 		<!--/Customizer CSS-->
@@ -177,6 +179,7 @@ class Garfunkel_Customize {
 		return $return;
 	}
 }
+
 // Setup the Theme Customizer settings and controls...
 add_action( 'customize_register', array( 'Garfunkel_Customize', 'register' ) );
 
