@@ -13,3 +13,4 @@ And I really liked the theme, seems logical to update it.
 * Added a space for excerpt ellepsis, easier to read.
 * Removed unused variables from multiple files.
 * Refactored `garfunkel_flexslider()`
+* Separate multiple items into template-parts.
