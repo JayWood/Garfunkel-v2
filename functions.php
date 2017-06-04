@@ -240,7 +240,6 @@ function garfunkel_if_is_mobile( $classes ) {
 add_action( 'body_class', 'garfunkel_if_page_class' );
 
 function garfunkel_if_page_class( $classes ) {
-	global $post;
 	if ( is_page() || is_404() || is_attachment() ) {
 		$classes[] = 'single-post';
 	}
@@ -266,15 +265,15 @@ add_filter( 'excerpt_more', 'garfunkel_new_excerpt' );
 
 
 // Add class to excerpts
-add_filter( "the_excerpt", "garfunkel_add_class_to_excerpt" );
+add_filter( 'the_excerpt', 'garfunkel_add_class_to_excerpt' );
 function garfunkel_add_class_to_excerpt( $excerpt ) {
 	return str_replace( '<p', '<p class="post-excerpt"', $excerpt );
 }
 
 
 // Get comment excerpt length
-function garfunkel_get_comment_excerpt( $comment_ID = 0, $num_words = 20 ) {
-	$comment      = get_comment( $comment_ID );
+function garfunkel_get_comment_excerpt( $comment_id = 0, $num_words = 20 ) {
+	$comment      = get_comment( $comment_id );
 	$comment_text = strip_tags( $comment->comment_content );
 	$blah         = explode( ' ', $comment_text );
 	if ( count( $blah ) > $num_words ) {
@@ -310,8 +309,8 @@ add_action( 'admin_head', 'garfunkel_custom_colors' );
 
 
 // Garfunkel meta function
-function garfunkel_meta() { ?>
-
+function garfunkel_meta() {
+	?>
 	<div class="post-meta">
 		<a class="post-meta-date" href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 			<div class="genericon genericon-time"></div>
@@ -325,21 +324,21 @@ function garfunkel_meta() { ?>
 		<?php endif; ?>
 		<div class="clear"></div>
 	</div> <!-- /post-meta -->
-
 	<?php
 }
 
 
 // Flexslider function for format-gallery
-function garfunkel_flexslider( $size = thumbnail ) {
+function garfunkel_flexslider( $size = 'thumbnail' ) {
+	global $post;
 
-	if ( is_page() ) :
+	if ( is_page() ) {
 		$attachment_parent = $post->ID;
-	else :
+	} else {
 		$attachment_parent = get_the_ID();
-	endif;
+	}
 
-	if ( $images = get_posts( array(
+	$images = get_posts( array(
 		'post_parent'    => $attachment_parent,
 		'post_type'      => 'attachment',
 		'numberposts'    => - 1, // show all
@@ -347,16 +346,17 @@ function garfunkel_flexslider( $size = thumbnail ) {
 		'post_mime_type' => 'image',
 		'orderby'        => 'menu_order',
 		'order'          => 'ASC',
-	) )
-	) { ?>
+	) );
 
-		<div class="flexslider">
+	if ( ! $images ) {
+		return;
+	}
 
+	?>
+	<div class="flexslider">
 		<ul class="slides">
-
 			<?php foreach ( $images as $image ) {
 				$attimg = wp_get_attachment_image( $image->ID, $size ); ?>
-
 				<li>
 					<?php echo $attimg; ?>
 					<?php if ( ! empty( $image->post_excerpt ) && is_single() ) : ?>
@@ -365,14 +365,10 @@ function garfunkel_flexslider( $size = thumbnail ) {
 						</div>
 					<?php endif; ?>
 				</li>
-
 			<?php }; ?>
-
 		</ul>
-
-		</div><?php
-
-	}
+	</div>
+	<?php
 }
 
 
