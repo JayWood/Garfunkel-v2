@@ -118,6 +118,7 @@ $format = get_post_format();
 
 							<?php
 							if ( in_array( $format, array( 'link', 'quote', 'video' ) ) ) {
+								/** @var array $content_parts */
 								echo apply_filters( 'the_content', $content_parts['extended'] );
 							} else {
 								the_content();
@@ -138,7 +139,7 @@ $format = get_post_format();
 							'link_after'  => '</span>',
 							'separator'   => '',
 							'pagelink'    => '%',
-							'echo'        => 1
+							'echo'        => 1,
 						);
 
 						wp_link_pages( $args );
@@ -149,9 +150,7 @@ $format = get_post_format();
 					<div class="post-meta bottom">
 
 						<div class="tab-selector">
-
 							<ul>
-
 								<li>
 									<a class="active tab-author-meta-toggle" href="#">
 										<div class="genericon genericon-user"></div>
@@ -170,10 +169,8 @@ $format = get_post_format();
 										<span><?php _e( 'Post info', 'garfunkel' ); ?></span>
 									</a>
 								</li>
-								<div class="clear"></div>
-
 							</ul>
-
+							<div class="clear"></div>
 						</div>
 
 						<div class="post-meta-tabs">
@@ -209,7 +206,7 @@ $format = get_post_format();
 
 										<?php
 										$prev_post = get_previous_post();
-										if ( ! empty( $prev_post ) ): ?>
+										if ( ! empty( $prev_post ) ) : ?>
 
 											<a class="post-nav-prev" title="<?php _e( 'Previous post:', 'garfunkel' );
 											echo ' ' . esc_attr( get_the_title( $prev_post ) ); ?>" href="<?php echo get_permalink( $prev_post->ID ); ?>">
@@ -221,7 +218,7 @@ $format = get_post_format();
 
 										<?php
 										$next_post = get_next_post();
-										if ( ! empty( $next_post ) ): ?>
+										if ( ! empty( $next_post ) ) : ?>
 
 											<a class="post-nav-next" title="<?php _e( 'Next post:', 'garfunkel' );
 											echo ' ' . esc_attr( get_the_title( $next_post ) ); ?>" href="<?php echo get_permalink( $next_post->ID ); ?>">
@@ -296,9 +293,7 @@ $format = get_post_format();
 												$myposts = get_posts( $args );
 
 												foreach ( $myposts as $post ) : setup_postdata( $post ); ?>
-													<li <?php if ( has_post_thumbnail() ) {
-														echo 'class="has-thumb"';
-													} ?>>
+													<li <?php echo has_post_thumbnail() ? 'class="has-thumb"' : '' ; ?>>
 														<a href="<?php the_permalink(); ?>">
 
 															<div class="post-icon">
@@ -346,8 +341,8 @@ $format = get_post_format();
 
 													if ( strlen( $comment_excerpt ) > 60 ) {
 														$comment_excerpt = substr( $comment_excerpt, 0, 60 );
-														$comment_excerpt = substr( $comment_excerpt, 0, strrpos( $comment_excerpt, " " ) );
-														$etc             = " ...";
+														$comment_excerpt = substr( $comment_excerpt, 0, strrpos( $comment_excerpt, ' ' ) );
+														$etc             = ' &hellip;';
 														$comment_excerpt = $comment_excerpt . $etc;
 													}
 													?>
@@ -397,7 +392,7 @@ $format = get_post_format();
 
 						<?php
 						$prev_post = get_previous_post();
-						if ( ! empty( $prev_post ) ): ?>
+						if ( ! empty( $prev_post ) ) : ?>
 
 							<a class="post-nav-prev" title="<?php _e( 'Previous post', 'garfunkel' );
 							echo ': ' . esc_attr( get_the_title( $prev_post ) ); ?>" href="<?php echo get_permalink( $prev_post->ID ); ?>">
@@ -409,7 +404,7 @@ $format = get_post_format();
 
 						<?php
 						$next_post = get_next_post();
-						if ( ! empty( $next_post ) ): ?>
+						if ( ! empty( $next_post ) ) : ?>
 
 							<a class="post-nav-next" title="<?php _e( 'Next post', 'garfunkel' );
 							echo ': ' . esc_attr( get_the_title( $next_post ) ); ?>" href="<?php echo get_permalink( $next_post->ID ); ?>">
@@ -423,9 +418,9 @@ $format = get_post_format();
 
 					</div> <!-- /post-nav -->
 
-					<?php endwhile; else: ?>
+					<?php endwhile; else : ?>
 
-						<p><?php _e( "We couldn't find any posts that matched your query. Please try again.", "garfunkel" ); ?></p>
+						<p><?php _e( "We couldn't find any posts that matched your query. Please try again.", 'garfunkel' ); ?></p>
 
 					<?php endif; ?>
 
@@ -441,4 +436,4 @@ $format = get_post_format();
 
 	</div> <!-- /wrapper -->
 
-<?php get_footer(); ?>
+<?php get_footer();
