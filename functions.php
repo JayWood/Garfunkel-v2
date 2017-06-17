@@ -10,6 +10,9 @@ require_once get_template_directory() . '/widgets/video-widget.php';
 require_once get_template_directory() . '/widgets/search-form.php';
 require_once 'includes/class-garfunkel-customize.php';
 
+// Custom CPTs
+require_once 'includes/class-cpt-portfolio.php';
+
 // Theme setup
 add_action( 'after_setup_theme', 'garfunkel_setup' );
 
