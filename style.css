@@ -1078,7 +1078,8 @@ a .post-icon img {
 /* Post header --------------------------------------- */
 
 
-.single-post .post-inner {
+.single-post .post-inner,
+.post-type-archive-portfolio .post-inner {
 	padding: 8% 0;
 	width: 700px;
 	max-width: 84%;
@@ -3192,4 +3193,16 @@ img#wpstats { display: none; }
 	.tab-author-meta .author-meta-inner { margin-left: 75px; }
 
 
+}
+
+/* -------------------------------------------------------------------------------- */
+/*	17. Portfolio
+/* -------------------------------------------------------------------------------- */
+.post-type-archive-portfolio .widget-area{
+	border-top: 1px solid #ddd;
+	background: #FFF;
+}
+
+.post-type-archive-portfolio .post {
+	margin-bottom: 64px;
 }

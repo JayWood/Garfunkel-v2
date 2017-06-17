@@ -25,6 +25,7 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 			'portfolio',
 		), array(
 			'supports' => array( 'title', 'excerpt', 'editor', 'thumbnail' ),
+			'has_archive' => true,
 		) );
 
 		add_action( 'admin_head', array( $this, 'admin_styles' ) );
