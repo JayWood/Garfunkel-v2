@@ -1,8 +1,7 @@
 <?php
 
-if ( ! class_exists( 'CPT_Core' ) ) {
-	require_once 'CPT_Core/CPT_Core.php';
-}
+require_once 'CPT_Core/CPT_Core.php';
+
 
 class Garfunkel_CPT_Portfolio extends CPT_Core {
 
@@ -18,13 +17,26 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 
 	public function __construct() {
 
+		error_log( print_r( get_theme_support( 'post-thumbnails' ), 1 ) );
+
 		parent::__construct( array(
 			__( 'Portfolio Item', 'garfunkel' ),
 			__( 'Portfolio Items', 'garfunkel' ),
 			'portfolio',
 		), array(
-			'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
+			'supports' => array( 'title', 'excerpt', 'editor', 'thumbnail' ),
 		) );
+
+		add_action( 'admin_head', array( $this, 'admin_styles' ) );
+	}
+
+	public function admin_styles() {
+		?>
+		<style type="text/css">
+			.garfunkel-thumbnail img{ border: 4px solid #ccc }
+			th.column-garfunkel-thumbnail { width: 130px; }
+		</style>
+		<?php
 	}
 
 	public function columns( $columns ) {
@@ -33,7 +45,7 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 			$out[ $k ] = $column;
 
 			if ( 'cb' == $k ) {
-				$out['thumbnail'] = __( 'Screenshot', 'garfunkel' );
+				$out['garfunkel-thumbnail'] = __( 'Screenshot', 'garfunkel' );
 			}
 		}
 
@@ -41,10 +53,15 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 	}
 
 	public function columns_display( $col, $post_id ) {
-		if ( 'thumbnail' == $col ) {
-			the_post_thumbnail();
+		if ( 'garfunkel-thumbnail' == $col ) {
+			?>
+			<div>
+				<?php the_post_thumbnail( array( 128, 9999) ); ?>
+			</div>
+			<?php
 		}
 	}
 }
 
-Garfunkel_CPT_Portfolio::init();
+// Garfunkel_CPT_Portfolio::init();
+add_action( 'after_setup_theme', array( 'Garfunkel_CPT_Portfolio', 'init' ), 9 );

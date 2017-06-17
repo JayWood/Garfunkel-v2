@@ -14,7 +14,7 @@ require_once 'includes/class-garfunkel-customize.php';
 require_once 'includes/class-cpt-portfolio.php';
 
 // Theme setup
-add_action( 'after_setup_theme', 'garfunkel_setup' );
+add_action( 'after_setup_theme', 'garfunkel_setup', 10 );
 
 function garfunkel_setup() {
 
@@ -22,7 +22,7 @@ function garfunkel_setup() {
 	add_theme_support( 'automatic-feed-links' );
 
 	// Post thumbnails
-	add_theme_support( 'post-thumbnails', array( 'post', 'page' ) );
+	add_theme_support( 'post-thumbnails' );
 	add_image_size( 'post-image', 1140, 9999 );
 	add_image_size( 'post-thumbnail', 552, 9999 );
 
