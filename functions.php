@@ -301,7 +301,7 @@ function garfunkel_custom_colors() {
 	?>
 	<style type="text/css">
 		#postimagediv #set-post-thumbnail img {max-width: 100%;height: auto;}
-	</style>';
+	</style>
 	<?php
 }
 
