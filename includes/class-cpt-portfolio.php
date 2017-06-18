@@ -1,6 +1,7 @@
 <?php
 
 require_once 'CPT_Core/CPT_Core.php';
+require_once 'CMB2-2.2.4/init.php';
 
 
 class Garfunkel_CPT_Portfolio extends CPT_Core {
@@ -16,9 +17,6 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 	}
 
 	public function __construct() {
-
-		error_log( print_r( get_theme_support( 'post-thumbnails' ), 1 ) );
-
 		parent::__construct( array(
 			__( 'Portfolio Item', 'garfunkel' ),
 			__( 'Portfolio Items', 'garfunkel' ),
@@ -29,6 +27,48 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 		) );
 
 		add_action( 'admin_head', array( $this, 'admin_styles' ) );
+		add_action( 'cmb2_admin_init', array( $this, 'cmb' ) );
+	}
+
+	public static function get_meta_prefix() {
+		return 'garfunkel_portfolio_';
+	}
+
+	public static function get_company_logo( $post_id = 0 ) {
+		$post_id = (int) $post_id ?: get_the_ID();
+
+		if ( empty( $post_id ) ) {
+			return;
+		}
+
+		$image_id = get_post_meta( $post_id, self::get_meta_prefix() . 'logo_id', true );
+		if ( empty( $image_id ) ) {
+			return;
+		}
+
+		echo wp_get_attachment_image( $image_id, array( 512, 512 ) );
+	}
+
+	public function cmb() {
+
+		$cmb = new_cmb2_box( array(
+			'id'           => self::get_meta_prefix() . 'metabox',
+			'title'        => esc_html__( 'Portfolio Options', 'garfunkel' ),
+			'object_types' => [ $this->post_type() ],
+		) );
+
+		$cmb->add_field( array(
+			'name'    => esc_html__( 'Logo', 'garfunkel' ),
+			'desc'    => esc_html__( 'Provide a transparent .png logo to overlay the featured image.', 'garfunkel' ),
+			'id'      => self::get_meta_prefix() . 'logo',
+			'type'    => 'file',
+			'options' => array(
+				'url' => false,
+			),
+			'text'    => array(
+				'add_upload_file_text' => esc_html__( 'Upload a Logo', 'garfunkel' ),
+			),
+		) );
 	}
 
 	public function admin_styles() {

@@ -17,7 +17,9 @@ get_header();
 					<?php if ( has_post_thumbnail() ) : ?>
 
 						<div class="featured-media">
-
+							<div class="overlay">
+								<?php Garfunkel_CPT_Portfolio::get_company_logo(); ?>
+							</div>
 							<?php the_post_thumbnail( 'post-image' ); ?>
 
 							<?php if ( ! empty( get_post( get_post_thumbnail_id() )->post_excerpt ) ) : ?>
@@ -47,12 +49,7 @@ get_header();
 						<div class="post-content">
 
 							<?php
-							if ( in_array( $format, array( 'link', 'quote', 'video' ) ) ) {
-								/** @var array $content_parts */
-								echo apply_filters( 'the_content', $content_parts['extended'] );
-							} else {
-								the_content();
-							}
+							the_content();
 
 							wp_link_pages();
 							?>

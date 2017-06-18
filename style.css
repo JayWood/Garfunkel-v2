@@ -3206,3 +3206,25 @@ img#wpstats { display: none; }
 .post-type-archive-portfolio .post {
 	margin-bottom: 64px;
 }
+
+.post-type-archive .featured-media{
+	max-height: 384px;
+	overflow: hidden;
+	position: relative;
+}
+
+.post-type-archive .featured-media .overlay{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background: -webkit-linear-gradient( rgba( 0,0,0,0.4), rgba( 0,0,0,0.7) );
+	line-height: 384px;
+	padding: 20px;
+}
+
+.post-type-archive .featured-media .overlay img {
+	display: inline-block;
+	vertical-align: middle;
+}
+
