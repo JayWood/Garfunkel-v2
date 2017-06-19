@@ -3228,3 +3228,33 @@ img#wpstats { display: none; }
 	vertical-align: middle;
 }
 
+.client-info{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.down-arrow {
+	text-align: center;
+	color: black;
+	font-size: 32px;
+	background: white;
+	border-radius: 28px;
+	padding: 8px;
+	margin: 14px;
+	padding-left: 10px;
+}
+
+.project-name{
+	padding: 5px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: inline-block;
+	background: #f90;
+	color: black;
+}
+
+

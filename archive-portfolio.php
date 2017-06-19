@@ -20,6 +20,12 @@ get_header();
 							<div class="overlay">
 								<?php Garfunkel_CPT_Portfolio::get_company_logo(); ?>
 							</div>
+							<div class="client-info">
+								<span class="project-name">
+									<?php Garfunkel_CPT_Portfolio::get_company_name(); ?>
+								</span>
+								<span class="down-arrow genericon genericon-expand"></span>
+							</div>
 							<?php the_post_thumbnail( 'post-image' ); ?>
 
 							<?php if ( ! empty( get_post( get_post_thumbnail_id() )->post_excerpt ) ) : ?>

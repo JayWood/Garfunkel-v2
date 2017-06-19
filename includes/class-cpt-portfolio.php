@@ -49,6 +49,21 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 		echo wp_get_attachment_image( $image_id, array( 512, 512 ) );
 	}
 
+	public static function get_company_name( $post_id = 0 ) {
+		$post_id = (int) $post_id ?: get_the_ID();
+
+		if ( empty( $post_id ) ) {
+			return '';
+		}
+
+		$company_name = get_post_meta( $post_id, self::get_meta_prefix() . 'company_name', true );
+		if ( empty( $company_name ) ) {
+			return '';
+		}
+
+		echo esc_attr( $company_name );
+	}
+
 	public function cmb() {
 
 		$cmb = new_cmb2_box( array(
@@ -68,6 +83,12 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 			'text'    => array(
 				'add_upload_file_text' => esc_html__( 'Upload a Logo', 'garfunkel' ),
 			),
+		) );
+
+		$cmb->add_field( array(
+			'name' => esc_html__( 'Company Name', 'garfunkel' ),
+			'type' => 'text',
+			'id' => self::get_meta_prefix() . 'company_name',
 		) );
 	}
 
