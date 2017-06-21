@@ -53,12 +53,12 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 		$post_id = (int) $post_id ?: get_the_ID();
 
 		if ( empty( $post_id ) ) {
-			return '';
+			return;
 		}
 
 		$company_name = get_post_meta( $post_id, self::get_meta_prefix() . 'company_name', true );
 		if ( empty( $company_name ) ) {
-			return '';
+			return;
 		}
 
 		echo esc_attr( $company_name );
