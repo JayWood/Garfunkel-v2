@@ -1,6 +1,7 @@
 <?php
 
 // Add theme widgets
+require_once 'includes/template-tags.php';
 require_once 'includes/class-garfunkel-walker.php';
 require_once get_template_directory() . '/widgets/dribbble-widget.php';
 require_once get_template_directory() . '/widgets/flickr-widget.php';

@@ -46,7 +46,7 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 			return;
 		}
 
-		echo wp_get_attachment_image( $image_id, array( 512, 512 ) );
+		return wp_get_attachment_image( $image_id, array( 512, 512 ) );
 	}
 
 	public static function get_company_name( $post_id = 0 ) {
@@ -61,7 +61,7 @@ class Garfunkel_CPT_Portfolio extends CPT_Core {
 			return;
 		}
 
-		echo esc_attr( $company_name );
+		return esc_attr( $company_name );
 	}
 
 	public function cmb() {

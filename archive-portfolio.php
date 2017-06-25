@@ -18,12 +18,10 @@ get_header();
 
 						<div class="featured-media">
 							<div class="overlay">
-								<?php Garfunkel_CPT_Portfolio::get_company_logo(); ?>
+								<?php echo Garfunkel_CPT_Portfolio::get_company_logo(); ?>
 							</div>
 							<div class="client-info">
-								<span class="project-name">
-									<?php Garfunkel_CPT_Portfolio::get_company_name(); ?>
-								</span>
+								<?php garfunkel_do_company_name(); ?>
 								<span class="down-arrow genericon genericon-expand"></span>
 							</div>
 							<?php the_post_thumbnail( 'post-image' ); ?>
