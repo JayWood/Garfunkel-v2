@@ -3258,3 +3258,18 @@ img#wpstats { display: none; }
 }
 
 
+.post-type-archive .post-inner{
+	padding: 0 0;
+	max-height: 0;
+	overflow: hidden;
+}
+
+.post-type-archive .post-inner.expanded {
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	-ms-transition: all .2s;
+	-o-transition: all .2s;
+	transition: all .2s;
+	padding: 8% 0;
+	max-height: 100%;
+}
