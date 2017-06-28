@@ -22,7 +22,7 @@ get_header();
 							</div>
 							<div class="client-info">
 								<?php garfunkel_do_company_name(); ?>
-								<span class="down-arrow genericon genericon-expand"></span>
+								<a href="#" class="down-arrow genericon genericon-expand"></a>
 							</div>
 							<?php the_post_thumbnail( 'post-image' ); ?>
 
